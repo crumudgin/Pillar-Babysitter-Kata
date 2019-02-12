@@ -16,3 +16,7 @@ class Babysitter():
 				raise ValueError("The babysitter starts no earlier than %d and ends no later than %d" %(self.earliest_start_time, self.latest_end_time))
 		self.jobs.append(job)
 			
+	def calc_earnings(self):
+		if self.jobs:
+			return self.jobs[0].calc_earnings
+		return 0

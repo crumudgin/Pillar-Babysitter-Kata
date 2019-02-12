@@ -1,7 +1,5 @@
 import pytest
 from babysitter import Babysitter
-from job import Job
-from datetime import time
 
 """
 user stories:
@@ -27,15 +25,7 @@ def babysitter():
 A test to ensure that the constants of the babysitter match the requirements.
 """
 def test_babysitter_constants(babysitter):
-	assert babysitter.earliest_start_time == time(hour=17)
-	assert babysitter.latest_end_time == time(hour=4)
+	assert babysitter.earliest_start_time == 0
+	assert babysitter.latest_end_time == 10
 	assert babysitter.max_jobs == 1
 
-"""
-A test to ensure that the constants of the job match the requirements.
-"""
-def test_job_constants():
-	hours = []
-	job = Job(hours)
-	assert job.earliest_start_time == time(hour=17)
-	assert job.latest_end_time == time(hour=4)

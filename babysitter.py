@@ -1,4 +1,4 @@
-from datetime import time
+from functools import reduce
 
 class Babysitter():
 	
@@ -17,6 +17,5 @@ class Babysitter():
 		self.jobs.append(job)
 			
 	def calc_earnings(self):
-		if self.jobs:
-			return self.jobs[0].calc_earnings
-		return 0
+		earnings = sum(map(lambda job: job.calc_earnings, self.jobs))
+		return earnings if earnings else 0

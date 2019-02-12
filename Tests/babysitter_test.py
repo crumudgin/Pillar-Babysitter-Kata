@@ -33,12 +33,13 @@ def test_babysitter_constants(babysitter):
 	assert babysitter.max_jobs == 1
 
 @pytest.mark.parametrize(("hours"),
-						[((0, 0),	(0, 10)),
-						 ((0, 1),	(0, 10)),
-						 ((0, 1),	(0, 8)),
-						 ((0, 5),	(0, 10)),
-						 ((0, 0,	(0, 5),	(0, 10))),
-						 ((0, 1),	(0, 2),	(0, 3),	(0, 4),	(0, 5),	(0, 6),	(0, 7),	(0, 8),	(0,	9),	(0,	10))
+						[
+						((0, 0), (0, 10)),
+						((0, 1), (0, 10)),
+						((0, 1), (0, 8)),
+						((0, 5), (0, 10)),
+						((0, 0), (0, 5), (0, 10)),
+						((0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7), (0, 8), (0, 9), (0, 10))
 						])
 def test_babysitter_take_valid_job(babysitter, hours):
 	job = mock.Mock()
@@ -48,10 +49,8 @@ def test_babysitter_take_valid_job(babysitter, hours):
 
 
 @pytest.mark.parametrize(("hours"),
-						[((0, 0),	(0, 11)),
-						 ((0, 0),	(0, 0)),
-						 ((0, 5),	(0, 4)),
-						 ((0, 11),	(0, 12))
+						[((0, 0), (0, 11)),
+						 ((0, 11), (0, 12))
 						])
 def test_babysitter_take_invalid_job(babysitter, hours):
 	job = mock.Mock()
@@ -65,12 +64,13 @@ def test_babysitter_take_invalid_job(babysitter, hours):
 def test_babysitter_add_multiple_jobs(babysitter):
 	job1 = mock.Mock()
 	job2 = mock.Mock()
+	job1.configure_mock(hours=((0, 1), (0, 2)))
 	babysitter.take_job(job1)
 	with pytest.raises(ValueError) as excinfo:
 		babysitter.take_job(job2)
-	assert "the babysitter is only accepting one job per night" in str(excinfo)
-	assert jobs == [job1]
-	assert jobs != [job2]
+	assert "The babysitter is only axxepting %d job(s) per night" %babysitter.max_jobs in str(excinfo)
+	assert babysitter.jobs == [job1]
+	assert babysitter.jobs != [job2]
 
 
 # @pytest.mark.parametrize(("earnings"),

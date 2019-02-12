@@ -42,7 +42,6 @@ def test_babysitter_constants(babysitter):
 def test_babysitter_take_valid_job(babysitter, hours):
 	job = mock.Mock()
 	babysitter.take_job(job)
-	assert babysitter.num_jobs == 1
 	assert babysitter.jobs == [job]
 
 @pytest.mark.parametrize(("hours"),

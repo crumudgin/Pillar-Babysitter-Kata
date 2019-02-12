@@ -1,12 +1,15 @@
 import pytest
+from unittest import mock
 from job import Job
 
 
 """
 A test to ensure that the constants of the job match the requirements.
 """
-def test_job_constants():
+def test_job_creation():
 	hours = []
-	job = Job(hours)
-	assert job.earliest_start_time == 0
-	assert job.latest_end_time == 10
+	family = mock.Mock()
+	job = Job(hours, family)
+	assert hours == job.hours
+	assert family == job.family
+

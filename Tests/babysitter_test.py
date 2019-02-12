@@ -71,18 +71,18 @@ def test_babysitter_add_multiple_jobs(babysitter):
 	assert jobs != [job2]
 
 
-@pytest.mark.parametrize(("earnings"),
-						[(0),
-						 (1),
-						 (2),
-						 (sys.maxsize)
-						])
-def test_babysitter_calc_earnings(babysitter, earnings):
-	job = mock.Mock()
-	job.configure_mock(calc_earnings=earnings)
-	babysitter.jobs = [job]
-	assert earnings == babysitter.calc_earnings()
+# @pytest.mark.parametrize(("earnings"),
+# 						[(0),
+# 						 (1),
+# 						 (2),
+# 						 (sys.maxsize)
+# 						])
+# def test_babysitter_calc_earnings(babysitter, earnings):
+# 	job = mock.Mock()
+# 	job.configure_mock(calc_earnings=earnings)
+# 	babysitter.jobs = [job]
+# 	assert earnings == babysitter.calc_earnings()
 
-def test_babysitter_calc_earnings_no_jobs(babysitter):
-	assert babysitter.calc_earnings() == 0
+# def test_babysitter_calc_earnings_no_jobs(babysitter):
+# 	assert babysitter.calc_earnings() == 0
 

@@ -41,6 +41,7 @@ def test_babysitter_constants(babysitter):
 						])
 def test_babysitter_take_valid_job(babysitter, hours):
 	job = mock.Mock()
+	job.configure_mock(hours=hours)
 	babysitter.take_job(job)
 	assert babysitter.jobs == [job]
 
@@ -52,6 +53,7 @@ def test_babysitter_take_valid_job(babysitter, hours):
 						])
 def test_babysitter_take_invalid_job(babysitter, hours):
 	job = mock.Mock()
+	job.configure_mock(hours=hours)
 	with pytest.raises(ValueError) as excinfo:
 		babysitter.take_job(job)
 	error_msg = "The babysitter starts no earlier than %d and ends no later than %d" %(babysitter.earliest_start_time, babysitter.latest_end_time)

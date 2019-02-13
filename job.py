@@ -8,3 +8,6 @@ class Job():
 	def check_hours_validity(self, start, stop):
 		if stop <= start:
 			raise ValueError("Illegal job hours")
+
+	def calculate_pay(self):
+		return 10

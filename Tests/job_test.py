@@ -38,5 +38,7 @@ def test_invalid_job_creation(family, hours):
 						[((0, 10),	((1, 0),),					10),	#test that the function calculates the hours for a single pay range
 						])
 def test_calculate_pay(family, hours, pay, expected_output):
-
+	family.configure_mock(price_by_hour=convert_price_hour_tuples(pay))
+	job = Job(hours, family)
+	assert job.calculate_pay() == expected_output
 

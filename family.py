@@ -14,4 +14,5 @@ class Family():
 				hour_val = hour.hour
 				rounded_hour = hour.replace(minute=0, hour=((hour_val + 1) if price == 0 else hour_val))
 			rounded_price_by_hour.append((price, rounded_hour))
+			rounded_price_by_hour.sort(key=lambda tup: tup[1])
 		return rounded_price_by_hour

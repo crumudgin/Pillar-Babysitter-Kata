@@ -15,4 +15,7 @@ class Family():
 				rounded_hour = hour.replace(minute=0, hour=((hour_val + 1) if price == 0 else hour_val))
 			rounded_price_by_hour.append((price, rounded_hour))
 		rounded_price_by_hour.sort(key=lambda tup: tup[1])
+		for index in range(1, len(rounded_price_by_hour)):
+			if rounded_price_by_hour[index][1] == rounded_price_by_hour[index-1][1]:
+				raise ValueError("Illegal hours")
 		return rounded_price_by_hour

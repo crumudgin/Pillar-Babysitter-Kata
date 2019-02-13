@@ -12,4 +12,4 @@ def test_family_creation(name, hours, expected_hours):
 	converted_hour = convert_price_hour_tuples(hours)
 	family = Family(name, converted_hour)
 	assert family.name == name
-	assert family.price_by_hour == expected_hours
+	assert family.price_by_hour == convert_price_hour_tuples(expected_hours)

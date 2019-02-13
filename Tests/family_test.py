@@ -15,6 +15,7 @@ def test_family_creation(name, hours, expected_hours):
 	assert family.name == name
 	assert family.price_by_hour == convert_price_hour_tuples(expected_hours)
 
+
 @pytest.mark.parametrize(("name",				"hours"),
 						[("hour_given_twice",	((15,0),(30,0),(0,7)))
 						])

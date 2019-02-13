@@ -6,34 +6,19 @@ from datetime import datetime
 from helper_functions import *
 
 
-"""
-user stories:
-As a babysitter
-In order to get paid for 1 night of work
-I want to calculate my nightly charge
-"""
-
-"""
-The babysitter:
-starts no earlier than 5:00PM
-leaves no later than 4:00AM
-only babysits for one family per night
-gets paid for full hours
-should be prevented from mistakes when entering times(e.g. end time before start time, or outside of allowable work hours)
-"""
-
 @pytest.fixture
 def babysitter():
 	return Babysitter()
 
 
-"""
-A test to ensure that the constants of the babysitter match the requirements.
-"""
 def test_babysitter_constants(babysitter):
+	"""
+	A test to ensure that the constants of the babysitter match the requirements.
+	"""
 	assert babysitter.earliest_start_time == datetime(2019, 2, 13, 17)
 	assert babysitter.latest_end_time == datetime(2019, 2, 14, 4)
 	assert babysitter.max_jobs == 1
+
 
 @pytest.mark.parametrize(("hours"),
 						[((0, 0), (0, 11)),
@@ -60,9 +45,10 @@ def test_babysitter_take_invalid_job(babysitter, hours):
 	job.configure_mock(hours=convert_price_hour_tuples(hours))
 	with pytest.raises(ValueError) as excinfo:
 		babysitter.take_job(job)
-	error_msg = "The babysitter works from %d - %d" %(babysitter.earliest_start_time.hour, babysitter.latest_end_time.hour)
-	assert error_msg in str(excinfo)
+	time_tuple = (babysitter.earliest_start_time.hour, babysitter.latest_end_time.hour)
+	assert "The babysitter works from %d - %d" %time_tuple in str(excinfo)
 	assert babysitter.jobs == []
+
 
 def test_babysitter_add_multiple_jobs(babysitter):
 	job1 = mock.Mock()
@@ -71,7 +57,7 @@ def test_babysitter_add_multiple_jobs(babysitter):
 	babysitter.take_job(job1)
 	with pytest.raises(ValueError) as excinfo:
 		babysitter.take_job(job2)
-	assert "The babysitter is only axxepting %d job(s) per night" %babysitter.max_jobs in str(excinfo)
+	assert "The babysitter is only accepting %d job(s) per night" %babysitter.max_jobs in str(excinfo)
 	assert babysitter.jobs == [job1]
 
 
@@ -86,6 +72,7 @@ def test_babysitter_calc_earnings(babysitter, earnings):
 	job.configure_mock(calc_earnings=earnings)
 	babysitter.jobs = [job]
 	assert earnings == babysitter.calc_earnings()
+
 
 def test_babysitter_calc_earnings_no_jobs(babysitter):
 	assert babysitter.calc_earnings() == 0

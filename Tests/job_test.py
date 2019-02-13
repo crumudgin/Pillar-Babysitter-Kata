@@ -34,3 +34,9 @@ def test_invalid_job_creation(family, hours):
 		job = Job(hours, family)
 	assert "Illegal job hours" in str(excinfo)
 
+@pytest.mark.parametrize(("hours", "pay", 						"expected_output"),
+						[((0, 10),	((1, 0),),					10),	#test that the function calculates the hours for a single pay range
+						])
+def test_calculate_pay(family, hours, pay, expected_output):
+
+

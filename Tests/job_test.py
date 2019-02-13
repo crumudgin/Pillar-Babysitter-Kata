@@ -2,6 +2,9 @@ import pytest
 from unittest import mock
 from job import Job
 
+@pytest.fixture
+def family():
+	family = mock.Mock()
 
 """
 A test to ensure that the constants of the job match the requirements.
@@ -13,9 +16,8 @@ A test to ensure that the constants of the job match the requirements.
 						 (5, 6),
 						 (20, 23)
 						])
-def test_valid_job_creation(hour):
+def test_valid_job_creation(family, hour):
 	hours = hour
-	family = mock.Mock()
 	job = Job(hours, family)
 	assert hours == job.hours
 	assert family == job.family
@@ -24,9 +26,8 @@ def test_valid_job_creation(hour):
 						[(10, 0),
 						 (0, 0)
 						])
-def test_invalid_job_creation(hour):
+def test_invalid_job_creation(family, hour):
 	hours = hour
-	family = mock.Mock()
 	with pytest.raises(ValueError) as excinfo:
 		job = Job(hours, family)
 	assert "Illegal job hours" in str(excinfo)

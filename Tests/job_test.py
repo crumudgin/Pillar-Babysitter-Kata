@@ -36,6 +36,7 @@ def test_invalid_job_creation(family, hours):
 
 @pytest.mark.parametrize(("hours", "pay", 						"expected_output"),
 						[((0, 10),	((1, 0),),					10),	#test that the function calculates the hours for a single pay range
+						 ((0, 10),	((2, 0),),					20)		#test that the function works for multiple inputs					
 						])
 def test_calculate_pay(hours, pay, expected_output):
 	family = mock.Mock()

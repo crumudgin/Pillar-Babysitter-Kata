@@ -34,13 +34,14 @@ def test_invalid_job_creation(family, hours):
 		job = Job(hours, family)
 	assert "Illegal job hours" in str(excinfo)
 
-@pytest.mark.parametrize(("hours", "pay", 						"expected_output"),
-						[((0, 10),	((1, 0),),					10),	#test that the function calculates the hours for a single pay range
-						 ((0, 10),	((2, 0),),					20)		#test that the function works for multiple inputs					
+@pytest.mark.parametrize(("hours", "pay", 		"expected_output"),
+						[((0, 10),	((1, 0),),	10),	#test that the function calculates the hours for a single pay range
+						 ((0, 10),	((2, 0),),	20)		#test that the function works for multiple inputs					
 						])
 def test_calculate_pay(hours, pay, expected_output):
 	family = mock.Mock()
-	family.configure_mock(price_by_hour=convert_price_hour_tuples(pay))
+	family.price_by_hour=convert_price_hour_tuples(pay)
+	hours = tuple((convert_hour_to_time(hour) for hour in hours))
 	job = Job(hours, family)
 	assert job.calculate_pay() == expected_output
 

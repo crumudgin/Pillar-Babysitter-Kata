@@ -10,4 +10,5 @@ class Job():
 			raise ValueError("Illegal job hours")
 
 	def calculate_pay(self):
-		return 10
+		hours_on_job = self.hours[1] - self.hours[0]
+		return hours_on_job.total_seconds() / 60 / 60 * self.family.price_by_hour[0][0]
